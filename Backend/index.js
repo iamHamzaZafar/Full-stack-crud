@@ -42,23 +42,32 @@ app.post("/create", async (req, res) => {
 
 // Update User data
 
-app.put("/update", async (req, res) => {
-  //   const { id } = req.params;
-  const id = req.body;
+app.put("/update/:id", async (req, res) => {
+
+  const id = req.params.id;
   console.log(id);
   const { name, email, contact } = req.body;
-  if (!name || !email || !contact) {
+  if (!name && !email && !contact) {
     return res
       .status(400)
       .json({ error: "At least one field must be provided for update" });
   }
 
   try {
-    const user = user.findById(id);
+    const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-  } catch (error) {}
+
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (contact) user.contact = contact;
+
+    const data = await user.save();
+    res.status(200).json({ message: "User updated successfully", data: data });
+  } catch (error) {
+    return res.status(500).json({ msg: "Server Error" });
+  }
 });
 
 // Delete User controller
