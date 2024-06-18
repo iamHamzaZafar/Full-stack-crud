@@ -16,7 +16,7 @@ db_connection();
 // get all the users data from the database
 app.get("/", async (req, res) => {
   const data = await User.find({});
-  res.json({ msg: "success", data: data });
+  res.json({ message: "success", msg: true  ,  data: data });
 });
 
 // create data || save data in the data base
