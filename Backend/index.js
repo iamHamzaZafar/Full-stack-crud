@@ -38,7 +38,7 @@ app.post("/create", async (req, res) => {
     const data = await user.save();
     res
       .status(201)
-      .json({ message: "User registered successfully", data: data });
+      .json({ message: "User registered successfully", msg: true , data: data });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }

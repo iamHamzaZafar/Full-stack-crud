@@ -29,8 +29,13 @@ function App() {
     // console.log(data);
     try {
       const data = await axios.post("http://localhost:5000/create" , formData)
-      console.log(data) ; 
-      setAddSection(false) ;
+      console.log(data) ;
+      
+      if(data.data.msg){
+        setAddSection(false) ;
+        alert(data.data.message)
+
+      }
     } catch (error) {
       console.log("Error connectiong to the server" , error)
     }
