@@ -31,7 +31,7 @@ app.post("/create", async (req, res) => {
   try {
     const existing = await User.findOne({ email });
     if (existing) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(200).json({msg: false , error: "User already exists with same email " });
     }
 
     const user = new User({ name, email, contact });

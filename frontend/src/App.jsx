@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 // import Table from "./components/Table";
 
 // axios.defaults.baseURL = "http://localhost:5000"
@@ -51,6 +54,9 @@ function App() {
       if (data.data.msg) {
         setAddSection(false);
         alert(data.data.message);
+      }
+      else if(data.data.msg == false) {
+        alert(data.data.error); // Show alert for existing user
       }
     } catch (error) {
       console.log("Error connectiong to the server", error);
@@ -121,18 +127,20 @@ function App() {
     <table className="min-w-[600px] text-center w-full">
       {/* head */}
       <thead className="bg-[#f0eaea]">
-        <tr>
+        <tr className="border-b">
           <th>Name</th>
           <th>Email</th>
           <th>Contact</th>
+          <th>Edit / Delete</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
         {userData.map((elem) => (
-          <tr key={elem._id}>
+          <tr key={elem._id} className="border-b">
             <td>{elem.name}</td>
             <td>{elem.email}</td>
             <td>{elem.contact}</td>
+            <td className=" flex items-center justify-center cursor-pointer "><FaEdit size={20} />  <MdDelete size={20} /></td>
           </tr>
         ))}
       </tbody>
